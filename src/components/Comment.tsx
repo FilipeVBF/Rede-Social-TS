@@ -3,18 +3,25 @@ import { Avatar } from './Avatar'
 import styles from './Comment.module.css'
 import { useState } from 'react'
 
-export function Comment ({ content, src, applaud, onDeleteComment }) {
-  const [likeCount, setLikeCount] = useState(applaud)
+interface CommentProps {
+  content: string;
+  onDeleteComment: (content: string) => void;
+  src: string;
+  applaud: number;
+}
+
+export function Comment ({ content, src, applaud, onDeleteComment }: CommentProps) {
+  const [likeCount, setLikeCount] =  useState<number>(Number(applaud));
 
   const handleDeleteComment = () => {
     onDeleteComment(content)
   }
   const handleLikeComment = () => {
-    setLikeCount((state) => parseInt(state) + 1)
+    setLikeCount((state) => state + 1)
   }
   return (
     <div className={styles.comment}>
-      <Avatar hasBorder={false} src={src} />
+      <Avatar hasBorder={false} src={src} alt='' />
       
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
